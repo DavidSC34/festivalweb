@@ -391,6 +391,14 @@ h3 {
   font-size: 3.2rem;
 }
 
+.bg-verde {
+  background-color: #4cb8B3;
+}
+
+.bg-amarillo {
+  background-color: #fef46d;
+}
+
 .header {
   background-color: #4cb8B3;
 }
@@ -510,4 +518,79 @@ h3 {
 
 .contenido-principal .texto {
   line-height: 1.5;
+}
+
+.lineup {
+  background-color: #f53756;
+  padding: 5rem 0;
+}
+
+.lineup h3,
+.lineup p {
+  text-align: center;
+  color: #fff;
+}
+
+.lineup .dia {
+  text-transform: uppercase;
+  margin: 5rem 0;
+}
+
+@media (min-width: 768px) {
+  .escenarios-contenedor {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5rem;
+  }
+}
+
+.escenarios-contenedor .escenario {
+  padding: 2.5rem;
+}
+
+.escenarios-contenedor .nombre-escenario {
+  color: #000;
+  font-size: 2rem;
+  font-weight: 300;
+}
+
+.escenarios-contenedor .nombre-escenario:after {
+  content: '';
+  width: 20rem;
+  height: 10rem;
+  display: block;
+  margin: 2rem auto 0 auto;
+  background-size: 15rem;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.edm .nombre-escenario:after {
+  background-image: url(../img/icono_edm.png);
+}
+
+.rock .nombre-escenario:after {
+  background-image: url(../img/icono_rock.png);
+}
+
+.calendario {
+  padding: 0;
+  list-style: none;
+}
+
+.calendario li {
+  padding: 2.5rem;
+  font-weight: 700;
+}
+
+.calendario span {
+  font-weight: 400;
+}
+
+.bg-verde .calendario li:nth-child(odd) {
+  background-color: #3b9691;
+}
+
+.bg-amarillo .calendario li:nth-child(odd) {
+  background-color: #fef03a;
 }

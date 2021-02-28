@@ -2,11 +2,16 @@ const { series, src, dest, watch } = require('gulp'); //llaves multiples funcion
 const sass = require('gulp-sass');
 const imagemin = require('gulp-imagemin');
 const notify = require('gulp-notify');
+const webp = require('gulp-webp');
 
 //Funcion que compila SASS
+const paths = {
+    imagenes: 'src/img/**/*',
+    scss: 'src/scss/**/*.scss'
+};
 
 function css(done) {
-    return src('src/scss/app.scss')
+    return src(paths.scss)
         .pipe(sass({
             outputStyle: 'expanded'
         }))
@@ -14,7 +19,7 @@ function css(done) {
 }
 //ñlista para llevarla a produccion
 function minificarcss() {
-    return src('src/scss/app.scss')
+    return src(paths.scss)
         .pipe(sass({
             outputStyle: 'compressed'
         }))
@@ -22,15 +27,23 @@ function minificarcss() {
 }
 
 function imagenes() {
-    return src('src/img/**/*')
+    return src(paths.imagenes)
         .pipe(imagemin())
         .pipe(dest('./build/img'))
         .pipe(notify({ message: 'imagen Minificada' }));
 
 }
 
+function versionWebp() {
+
+    return src(paths.imagenes)
+        .pipe(webp())
+        .pipe(dest('./build/img'))
+        .pipe(notify({ message: 'Version webP lista' }));
+}
+
 function watchArchivos() {
-    watch('src/scss/**/*.scss', css); //* La carpeta acutal, **--> Todos loa archivos con esa extension
+    watch(paths.scss, css); //* La carpeta acutal, **--> Todos loa archivos con esa extension
 }
 //Exporta, creando tareas
 // exports.tareas = series(css,minificarcss);  //--> ejecuta las tareas en serie
@@ -41,4 +54,4 @@ exports.minificarcss = minificarcss;
 exports.imagenes = imagenes;
 exports.watchArchivos = watchArchivos;
 
-exports.default = series(css, imagenes, watchArchivos);
+exports.default = series(css, imagenes, versionWebp, watchArchivos);
