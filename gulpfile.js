@@ -1,5 +1,7 @@
 const { series, src, dest, watch } = require('gulp'); //llaves multiples funciones
 const sass = require('gulp-sass');
+const imagemin = require('gulp-imagemin');
+const notify = require('gulp-notify');
 
 //Funcion que compila SASS
 
@@ -19,6 +21,14 @@ function minificarcss() {
         .pipe(dest('./build/css'));
 }
 
+function imagenes() {
+    return src('src/img/**/*')
+        .pipe(imagemin())
+        .pipe(dest('./build/img'))
+        .pipe(notify({ message: 'imagen Minificada' }));
+
+}
+
 function watchArchivos() {
     watch('src/scss/**/*.scss', css); //* La carpeta acutal, **--> Todos loa archivos con esa extension
 }
@@ -28,4 +38,7 @@ function watchArchivos() {
 //exports.tareas = parallel(css,minificarcss);//--> se completan de acuerdo a la tareas que tengan qu ehacer
 exports.css = css;
 exports.minificarcss = minificarcss;
+exports.imagenes = imagenes;
 exports.watchArchivos = watchArchivos;
+
+exports.default = series(css, imagenes, watchArchivos);

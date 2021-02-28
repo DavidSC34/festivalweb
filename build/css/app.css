@@ -480,3 +480,34 @@ h3 {
   font-size: 2rem;
   padding: 1rem 2rem;
 }
+
+.sobre-festival {
+  padding: 5rem 0;
+}
+
+@media (min-width: 768px) {
+  .sobre-festival {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5rem;
+  }
+}
+
+.contenido-principal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.contenido-principal h2 {
+  font-size: 3rem;
+}
+
+.contenido-principal .fecha {
+  color: #f53756;
+  font-weight: 700;
+}
+
+.contenido-principal .texto {
+  line-height: 1.5;
+}
