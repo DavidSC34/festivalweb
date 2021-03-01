@@ -3,11 +3,13 @@ const sass = require('gulp-sass');
 const imagemin = require('gulp-imagemin');
 const notify = require('gulp-notify');
 const webp = require('gulp-webp');
+const concat = require('gulp-concat');
 
 //Funcion que compila SASS
 const paths = {
     imagenes: 'src/img/**/*',
-    scss: 'src/scss/**/*.scss'
+    scss: 'src/scss/**/*.scss',
+    js: 'src/js/**/*.js'
 };
 
 function css(done) {
@@ -24,6 +26,12 @@ function minificarcss() {
             outputStyle: 'compressed'
         }))
         .pipe(dest('./build/css'));
+}
+
+function javascript() {
+    return src(paths.js)
+        .pipe(concat('bundle.js'))
+        .pipe(dest('./build/js'));
 }
 
 function imagenes() {
@@ -44,6 +52,7 @@ function versionWebp() {
 
 function watchArchivos() {
     watch(paths.scss, css); //* La carpeta acutal, **--> Todos loa archivos con esa extension
+    watch(paths.js, javascript);
 }
 //Exporta, creando tareas
 // exports.tareas = series(css,minificarcss);  //--> ejecuta las tareas en serie
@@ -54,4 +63,4 @@ exports.minificarcss = minificarcss;
 exports.imagenes = imagenes;
 exports.watchArchivos = watchArchivos;
 
-exports.default = series(css, imagenes, versionWebp, watchArchivos);
+exports.default = series(css, javascript, imagenes, versionWebp, watchArchivos);
