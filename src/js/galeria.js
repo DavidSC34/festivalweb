@@ -31,6 +31,7 @@ function mostrarImagen(e) {
     //cunado se da lcik, cerrar la imagen
     overlay.onclick = function() {
         overlay.remove();
+        body.classList.remove('fijar-body');
     }
 
     overlay.appendChild(imagen);
@@ -43,6 +44,7 @@ function mostrarImagen(e) {
     //cunado se presiona, se cierra la imagen
     cerrarImagen.onclick = function() {
         overlay.remove();
+        body.classList.remove('fijar-body');
     }
 
 
