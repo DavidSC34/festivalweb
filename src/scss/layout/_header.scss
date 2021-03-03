@@ -17,6 +17,11 @@
         }
         // @include nuevoMixin(uppercase, 3rem);
     }
+    &.fijo {
+        position: fixed;
+        width: 100%;
+        box-shadow: 0 0.3rem 0.4rem #444;
+    }
 }
 
 .navegacion-principal {

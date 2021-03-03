@@ -5,6 +5,17 @@ const notify = require('gulp-notify');
 const webp = require('gulp-webp');
 const concat = require('gulp-concat');
 
+//Utilidades CSS
+const autoprefixer = require('autoprefixer');
+const postcss = require('gulp-postcss');
+const cssnano = require('cssnano'); //imposible de leer el css
+const sourcemaps = require('gulp-sourcemaps');
+
+//Utilidades JS
+const terser = require('gulp-terser-js');
+const rename = require('gulp-rename');
+
+
 //Funcion que compila SASS
 const paths = {
     imagenes: 'src/img/**/*',
@@ -14,23 +25,28 @@ const paths = {
 
 function css(done) {
     return src(paths.scss)
-        .pipe(sass({
-            outputStyle: 'expanded'
-        }))
+        .pipe(sourcemaps.init())
+        .pipe(sass())
+        .pipe(postcss([autoprefixer(), cssnano()]))
+        .pipe(sourcemaps.write('.'))
         .pipe(dest('./build/css'));
 }
 //ñlista para llevarla a produccion
-function minificarcss() {
-    return src(paths.scss)
-        .pipe(sass({
-            outputStyle: 'compressed'
-        }))
-        .pipe(dest('./build/css'));
-}
+// function minificarcss() {
+//     return src(paths.scss)
+//         .pipe(sass({
+//             outputStyle: 'compressed'
+//         }))
+//         .pipe(dest('./build/css'));
+// }
 
 function javascript() {
     return src(paths.js)
+        .pipe(sourcemaps.init())
         .pipe(concat('bundle.js'))
+        .pipe(terser())
+        .pipe(sourcemaps.write('.'))
+        .pipe(rename({ suffix: '.min' }))
         .pipe(dest('./build/js'));
 }
 
@@ -59,7 +75,7 @@ function watchArchivos() {
 //exports.default =series(css,minificarcss);  //--> ejecuta las tareas con solo poner gulp de comando
 //exports.tareas = parallel(css,minificarcss);//--> se completan de acuerdo a la tareas que tengan qu ehacer
 exports.css = css;
-exports.minificarcss = minificarcss;
+// exports.minificarcss = minificarcss;
 exports.imagenes = imagenes;
 exports.watchArchivos = watchArchivos;
 
